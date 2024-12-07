@@ -1,0 +1,29 @@
+{
+  "name": "cartevisite-api",
+  "version": "1.0.0",
+  "description": "Project qui me sert a former le cours postman carte visite",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedMahouachi/CarteVisite-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmedMahouachi/CarteVisite-API/issues"
+  },
+  "homepage": "https://github.com/ahmedMahouachi/CarteVisite-API#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.4"
+  }
+}
