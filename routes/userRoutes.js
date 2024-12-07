@@ -7,7 +7,7 @@ const { createUser,
     updateProfile,
     getProfile,
     getProfileById    } = require('../controllers/userController');
-
+ 
 
 router.post('/createUser/', createUser);
 router.post('/login/', login);
