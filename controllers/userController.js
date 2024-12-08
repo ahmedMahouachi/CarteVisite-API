@@ -1,7 +1,9 @@
 const User = require('../models/UserModel'); 
 const jwt = require("jsonwebtoken");
-
-
+const PDFDocument = require('pdfkit');
+const path = require('path');
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 exports.createUser = async (req, res) => {
     try {
       const { email, password, fullName, societe, phoneNumber } = req.body;
@@ -209,3 +211,84 @@ exports.getProfileById = async (req, res) => {
       res.status(500).json({ message: "An unexpected error occurred", error });
     }
   };
+
+
+  
+  exports.generateCv = async (req, res) => {
+    try {
+        const { personalInfo, experiences, skills, languages } = req.body;
+
+        if (!personalInfo || !experiences || !skills || !languages) {
+            return res.status(400).json({ message: "Invalid input. Please provide all required fields." });
+        }
+
+        // Générer un nom de fichier unique
+        const uniqueId = Date.now(); // Identifiant unique basé sur l'heure actuelle
+        const fileName = `${personalInfo.fullName.replace(/\s+/g, '_')}_${uniqueId}.pdf`;
+
+        // Définir le chemin du dossier 'public' en remontant d'un niveau
+        const dirPath = path.join(__dirname, '..', 'public', 'cvs');
+        const filePath = path.join(dirPath, fileName);
+
+        // Créer un répertoire s'il n'existe pas
+        if (!fs.existsSync(dirPath)) {
+            fs.mkdirSync(dirPath, { recursive: true });
+        }
+
+        // Créer un nouveau document PDF
+        const doc = new PDFDocument();
+        const writeStream = fs.createWriteStream(filePath);
+        doc.pipe(writeStream);
+
+        // Générer le contenu du CV
+        doc.fontSize(20).text('Curriculum Vitae', { align: 'center' }).moveDown();
+        doc.fontSize(14).text(`Name: ${personalInfo.fullName}`);
+        doc.text(`Email: ${personalInfo.email}`);
+        doc.text(`Phone: ${personalInfo.phoneNumber}`);
+        if (personalInfo.address) {
+            doc.text(`Address: ${personalInfo.address}`);
+        }
+        doc.moveDown();
+
+        // Section Expérience
+        doc.fontSize(16).text('Experience:', { underline: true }).moveDown(0.5);
+        experiences.forEach((exp, index) => {
+            doc.fontSize(14).text(`${index + 1}. ${exp.position} at ${exp.company}`);
+            doc.text(`   - Duration: ${exp.duration}`);
+            doc.text(`   - Description: ${exp.description}`).moveDown(0.5);
+        });
+
+        // Section Compétences
+        doc.fontSize(16).text('Skills:', { underline: true }).moveDown(0.5);
+        skills.forEach((skill, index) => {
+            doc.fontSize(14).text(`${index + 1}. ${skill}`);
+        });
+        doc.moveDown();
+
+        // Section Langues
+        doc.fontSize(16).text('Languages:', { underline: true }).moveDown(0.5);
+        languages.forEach((lang, index) => {
+            doc.fontSize(14).text(`${index + 1}. ${lang}`);
+        });
+
+        // Finaliser le document
+        doc.end();
+
+        writeStream.on('finish', () => {
+            const fileUrl = `http://${req.headers.host}/cvs/${fileName}`; // Lien dynamique
+            res.status(200).json({
+                message: "CV generated successfully",
+                cvLink: fileUrl,
+            });
+        });
+
+        writeStream.on('error', (error) => {
+            console.error("Error writing file:", error);
+            res.status(500).json({ message: "Failed to generate CV", error });
+        });
+    } catch (error) {
+        console.error("Error generating CV:", error);
+        res.status(500).json({ message: "An unexpected error occurred", error });
+    }
+};
+

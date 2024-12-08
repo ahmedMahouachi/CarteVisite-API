@@ -3,6 +3,7 @@ const app = express();
 const connectDB = require("./config/dbConnect");
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const path = require('path');
 const userRoutes = require("./routes/userRoutes");
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -17,7 +18,7 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions));
-
+app.use('/cvs', express.static(path.join(__dirname, 'public', 'cvs')));
 console.log('Starting your application...');
 
 

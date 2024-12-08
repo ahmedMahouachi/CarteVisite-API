@@ -6,7 +6,8 @@ const { createUser,
     deleteProfile,
     updateProfile,
     getProfile,
-    getProfileById    } = require('../controllers/userController');
+    getProfileById,
+    generateCv    } = require('../controllers/userController');
  
 
 router.post('/createUser/', createUser);
@@ -15,5 +16,6 @@ router.delete('/deleteProfile/', deleteProfile);
 router.put('/updateProfile/', updateProfile);
 router.get('/getProfile/', getProfile);
 router.get('/getProfileById/:userId', getProfileById);
+router.post('/generatecv/', generateCv)
 
 module.exports = router;
