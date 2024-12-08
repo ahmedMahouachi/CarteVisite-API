@@ -18,6 +18,8 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions));
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
 app.use('/cvs', express.static(path.join(__dirname, 'public', 'cvs')));
 console.log('Starting your application...');
 
