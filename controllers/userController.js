@@ -285,7 +285,7 @@ exports.getProfileById = async (req, res) => {
   
           writeStream.on('finish', () => {
               const fileUrl = `http://${req.headers.host}/cvs/${fileName}`; // Lien dynamique
-              res.status(200).json({
+              res.status(201).json({
                   message: "CV generated successfully",
                   cvLink: fileUrl,
               });
