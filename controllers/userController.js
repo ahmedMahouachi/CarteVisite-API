@@ -4,6 +4,8 @@ const PDFDocument = require('pdfkit');
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+
+
 exports.createUser = async (req, res) => {
     try {
       const { email, password, fullName, societe, phoneNumber } = req.body;
@@ -118,40 +120,43 @@ exports.createUser = async (req, res) => {
   };
 
 
-
-exports.updateProfile = async (req, res) => {
-  try {
-    const token = req.headers.authorization;
-
-    if (!token) {
-      return res.status(401).json({ message: 'Token non fourni' });
-    }
-
-    const decoded = jwt.verify(token, "secretJWT");
-
-    const userId = decoded.id; 
-
-    const { fullName, societe, phoneNumber } = req.body;
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    if (fullName) user.fullName = fullName;
-    if (societe) user.societe = societe;
-    if (phoneNumber) user.phoneNumber = phoneNumber;
+  exports.updateProfile = async (req, res) => {
+    try {
+      const token = req.headers.authorization;
   
-
-    await user.save();
-
-    res.status(200).json({ message: "User profile updated successfully", user });
-  } catch (error) {
-    console.error("Error during profile update:", error);
-    res.status(500).json({ message: "An unexpected error occurred", error });
-  }
-};
-
+      if (!token) {
+        return res.status(401).json({ message: 'Token non fourni' });
+      }
+  
+      // Erreur intentionnelle : mauvaise clé pour décoder le token
+      const decoded = jwt.verify(token, "incorrectSecretJWT"); 
+  
+      const userId = decoded.id;
+  
+      const { fullName, societe, phoneNumber } = req.body;
+  
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      // Erreur intentionnelle : logique incorrecte pour mettre à jour le téléphone
+      if (phoneNumber && phoneNumber.length < 8) { 
+        user.phoneNumber = "00000000"; // Remplacer par une valeur par défaut incorrecte
+      }
+  
+      if (fullName) user.fullName = fullName;
+      if (societe) user.societe = societe;
+  
+      await user.save();
+  
+      res.status(200).json({ message: "User profile updated successfully", user });
+    } catch (error) {
+      console.error("Error during profile update:", error);
+      res.status(500).json({ message: "An unexpected error occurred", error });
+    }
+  };
+  
 
 exports.getProfile = async (req, res) => {
   try {
@@ -299,5 +304,18 @@ exports.getProfileById = async (req, res) => {
           console.error("Error generating CV:", error);
           res.status(500).json({ message: "An unexpected error occurred", error });
       }
+  };
+  
+  exports.getAllProfiles = async (req, res) => {
+    try {
+      const users = await User.find({}, '-password'); // Exclure les mots de passe
+      res.status(200).json({
+        message: "All user profiles retrieved successfully",
+        users,
+      });
+    } catch (error) {
+      console.error("Error retrieving all profiles:", error);
+      res.status(500).json({ message: "An unexpected error occurred", error });
+    }
   };
   
