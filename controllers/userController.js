@@ -129,7 +129,7 @@ exports.createUser = async (req, res) => {
       }
   
       // Erreur intentionnelle : mauvaise clé pour décoder le token
-      const decoded = jwt.verify(token, "incorrectSecretJWT"); 
+      const decoded = jwt.verify(token, "secretJWT"); 
   
       const userId = decoded.id;
   
