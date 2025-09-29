@@ -4,7 +4,7 @@ mongoose.set("strictQuery", false);
 
 const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb+srv://ahmedmahouachi66:PRq4eCkr7xSJWOoG@cluster0.rct0q.mongodb.net/?retryWrites=true&w=majority");
+        await mongoose.connect("mongodb+srv://ahmedmahouachi66:<db_password>@clusterapi.az66k47.mongodb.net/");
         console.log("Database connected...");
     } catch (error) {
         console.log("Database connection error:", error);

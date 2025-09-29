@@ -319,3 +319,28 @@ exports.getProfileById = async (req, res) => {
     }
   };
   
+
+
+  exports.deleteProfileById = async (req, res) => {
+    try {
+  
+  
+      userId = req.params.userId;
+  
+  
+      const { fullName, societe, phoneNumber } = req.body;
+  
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+  
+      await user.deleteOne();
+  
+      res.status(200).json({ message: "User profile updated successfully", user });
+    } catch (error) {
+      console.error("Error during profile update:", error);
+      res.status(500).json({ message: "An unexpected error occurred", error });
+    }
+  };
