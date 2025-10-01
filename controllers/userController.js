@@ -149,7 +149,7 @@ exports.createUser = async (req, res) => {
       if (fullName) user.fullName = fullName;
       if (societe) user.societe = societe;
   
-      await user.save();
+      await user.save(); 
   
       res.status(200).json({ message: "User profile updated successfully", user });
     } catch (error) {
