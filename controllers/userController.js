@@ -144,6 +144,7 @@ exports.createUser = async (req, res) => {
       if (phoneNumber && phoneNumber.length < 8) { 
         user.phoneNumber = "00000000"; // Remplacer par une valeur par défaut incorrecte
       }
+      
   
       if (fullName) user.fullName = fullName;
       if (societe) user.societe = societe;
