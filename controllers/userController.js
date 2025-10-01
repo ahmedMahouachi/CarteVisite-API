@@ -143,7 +143,7 @@ exports.createUser = async (req, res) => {
       // Erreur intentionnelle : logique incorrecte pour mettre à jour le téléphone
       if (phoneNumber && phoneNumber.length < 8) { 
         user.phoneNumber = "00000000"; // Remplacer par une valeur par défaut incorrecte
-      }
+      } 
       
   
       if (fullName) user.fullName = fullName;
