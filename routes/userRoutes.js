@@ -21,6 +21,6 @@ router.get('/getProfileById/:userId', getProfileById);
 router.post('/generatecv/', generateCv);
 router.get('/getallprofiles/', getAllProfiles);
 router.delete('/deletebyid/:userId', deleteProfileById);
-
+ 
 
 module.exports = router;
