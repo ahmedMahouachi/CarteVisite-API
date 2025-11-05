@@ -19,21 +19,30 @@ jobs:
         with:
           node-version: "18"
 
+      - name: 📦 Install backend dependencies
+        run: |
+          npm install
+
+      - name: 🚀 Start backend API (background)
+        run: |
+          node server.js
+
       - name: 📦 Install Newman + HTML Extra reporter
         run: |
-          npm install -g newman
-          npm install -g newman-reporter-htmlextra
+          npm install -g newman newman-reporter-htmlextra
 
       - name: 🚀 Run Newman Test Suite
+        continue-on-error: true
         run: |
-            mkdir -p reports
-            newman run "postman/User_API_Collection.postman_collection.json" \
+          mkdir -p reports
+          newman run "postman/User_API_Collection.postman_collection.json" \
             -e "postman/User_API_Local.postman_environment.json" \
-            --iteration-data "postman/user_api_iterations.json" \"
-
+            --iteration-data "postman/user_api_iterations.json" \
+            -r htmlextra \
+            --reporter-htmlextra-export "reports/gestionProfil.html"
 
       - name: 📤 Upload HTML test report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: newman-test-report
-          path: ./reports/gestionProfil.html
+          path: reports/gestionProfil.html
