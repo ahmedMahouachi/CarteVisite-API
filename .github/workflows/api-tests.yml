@@ -27,11 +27,9 @@ jobs:
       - name: 🚀 Run Newman Test Suite
         run: |
             mkdir -p reports
-            newman run "User_API_Collection.postman_collection.json" \
-            -e "User_API_Local.postman_environment.json" \
-            --iteration-data "user_api_iterations.json" \
-            -r htmlextra \
-            --reporter-htmlextra-export "reports/gestionProfil.html"
+            newman run "postman/User_API_Collection.postman_collection.json" \
+            -e "postman/User_API_Local.postman_environment.json" \
+            --iteration-data "postman/user_api_iterations.json" \"
 
 
       - name: 📤 Upload HTML test report as artifact
