@@ -1,0 +1,39 @@
+name: Newman API Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-api-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ✅ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🛠️ Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: 📦 Install Newman + HTML Extra reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
+      - name: 🚀 Run Newman Test Suite
+        run: |
+          newman run "User_API_Collection.postman_collection.json" \
+            -e "User_API_Local.postman_environment.json" \
+            --iteration-data "user_api_iterations.json" \
+            -r htmlextra \
+            --reporter-htmlextra-export "./reports/gestionProfil.html"
+
+      - name: 📤 Upload HTML test report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-test-report
+          path: ./reports/gestionProfil.html
