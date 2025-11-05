@@ -115,7 +115,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer {{token}}",
+            "value": "{{token}}",
             "type": "text"
           }
         ],
@@ -157,7 +157,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer {{token}}",
+            "value": "{{token}}",
             "type": "text"
           },
           {
@@ -206,7 +206,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer {{token}}",
+            "value": "{{token}}",
             "type": "text"
           }
         ],
