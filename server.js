@@ -36,6 +36,6 @@ server.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-    res.send('Yanis le BG !');
+    res.send('Backend Gestion de profil ');
   });
 
