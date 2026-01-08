@@ -10,6 +10,7 @@
     <div class="container">
         <h1>Créer votre CV</h1>
         <form id="cvForm">
+
             <fieldset>
                 <legend>Informations personnelles</legend>
                 <input type="text" name="fullName" placeholder="Nom complet" required>
@@ -20,17 +21,22 @@
 
             <fieldset>
                 <legend>Expériences professionnelles</legend>
-                <textarea name="experiences" placeholder="Format JSON: [{position:'', company:'', duration:'', description:''}]" required></textarea>
+                <div id="experiencesList"></div>
+                <button type="button" id="addExperienceBtn">Ajouter une expérience</button>
             </fieldset>
 
             <fieldset>
                 <legend>Compétences</legend>
-                <textarea name="skills" placeholder="Exemple: ['JavaScript','Node.js']" required></textarea>
+                <input type="text" id="skillInput" placeholder="Nouvelle compétence">
+                <button type="button" id="addSkillBtn">Ajouter</button>
+                <ul id="skillsList"></ul>
             </fieldset>
 
             <fieldset>
                 <legend>Langues</legend>
-                <textarea name="languages" placeholder="Exemple: ['Français','Anglais']" required></textarea>
+                <input type="text" id="langInput" placeholder="Nouvelle langue">
+                <button type="button" id="addLangBtn">Ajouter</button>
+                <ul id="langsList"></ul>
             </fieldset>
 
             <button type="submit">Générer CV</button>
