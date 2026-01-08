@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création de CV</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Créer votre CV</h1>
+        <form id="cvForm">
+            <fieldset>
+                <legend>Informations personnelles</legend>
+                <input type="text" name="fullName" placeholder="Nom complet" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="phoneNumber" placeholder="Numéro de téléphone" required>
+                <input type="text" name="address" placeholder="Adresse (optionnel)">
+            </fieldset>
+
+            <fieldset>
+                <legend>Expériences professionnelles</legend>
+                <textarea name="experiences" placeholder="Format JSON: [{position:'', company:'', duration:'', description:''}]" required></textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Compétences</legend>
+                <textarea name="skills" placeholder="Exemple: ['JavaScript','Node.js']" required></textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Langues</legend>
+                <textarea name="languages" placeholder="Exemple: ['Français','Anglais']" required></textarea>
+            </fieldset>
+
+            <button type="submit">Générer CV</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

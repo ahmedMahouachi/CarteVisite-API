@@ -36,6 +36,5 @@ server.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-    res.send('Backend Gestion de profil ');
-  });
-
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
