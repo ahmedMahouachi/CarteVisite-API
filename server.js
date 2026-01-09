@@ -5,7 +5,8 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const path = require('path');
 const userRoutes = require("./routes/userRoutes");
-
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
@@ -27,6 +28,9 @@ console.log('Starting your application...');
 
 
 app.use("/user", userRoutes)
+
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const port = 3001;
 server.listen(port, () => {
