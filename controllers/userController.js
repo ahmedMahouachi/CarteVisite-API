@@ -217,9 +217,9 @@ exports.getProfileById = async (req, res) => {
 
 exports.generateCv = async (req, res) => {
   try {
-    const { personalInfo, experiences, skills, languages } = req.body;
+    const { infoPerso, experiences, skills, languages } = req.body;
 
-    if (!personalInfo || !experiences || !skills || !languages) {
+    if (!infoPerso || !experiences || !skills || !languages) {
       return res
         .status(400)
         .json({
@@ -227,9 +227,17 @@ exports.generateCv = async (req, res) => {
         });
     }
 
+    if (!infoPerso.address ) {
+      return res
+        .status(400)
+        .json({
+          message: "Monsieur donne moi l'adresse pour que je puiise travailler",
+        });
+    }
+
     // Générer un nom de fichier unique
     const uniqueId = Date.now(); // Identifiant unique basé sur l'heure actuelle
-    const fileName = `${personalInfo.fullName.replace(
+    const fileName = `${infoPerso.fullName.replace(
       /\s+/g,
       "_"
     )}_${uniqueId}.pdf`;
@@ -266,11 +274,11 @@ exports.generateCv = async (req, res) => {
 
     // Générer le contenu du CV
     doc.fontSize(20).text("Curriculum Vitae", { align: "center" }).moveDown();
-    doc.fontSize(14).text(`Name: ${personalInfo.fullName}`);
-    doc.text(`Email: ${personalInfo.email}`);
-    doc.text(`Phone: ${personalInfo.phoneNumber}`);
-    if (personalInfo.address) {
-      doc.text(`Address: ${personalInfo.address}`);
+    doc.fontSize(14).text(`Name: ${infoPerso.fullName}`);
+    doc.text(`Email: ${infoPerso.email}`);
+    doc.text(`Phone: ${infoPerso.phoneNumber}`);
+    if (infoPerso.address) {
+      doc.text(`Address: ${infoPerso.address}`);
     }
     doc.moveDown();
 
