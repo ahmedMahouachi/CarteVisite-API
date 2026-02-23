@@ -267,7 +267,7 @@ exports.generateCv = async (req, res) => {
     doc.image(staticImagePath, { width: 100, height: 50 }).moveDown(0.5);
 
     // Ajouter le texte "Consulting School" dans le header
-    doc.fontSize(20).text("Consulting School", { align: "center" }).moveDown();
+    doc.fontSize(20).text("La plus belle Promo que j'ai enseigner de ma life", { align: "center" }).moveDown();
 
     // Ajouter un espace avant le reste du contenu
     doc.moveDown();
