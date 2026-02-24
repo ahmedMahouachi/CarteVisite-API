@@ -139,7 +139,7 @@ exports.updateProfile = async (req, res) => {
 
     // Erreur intentionnelle : logique incorrecte pour mettre à jour le téléphone
     if (phoneNumber && phoneNumber.length < 8) {
-      user.phoneNumber = "00000000"; // Remplacer par une valeur par défaut incorrecte
+      return res.status(400)
     }
 
     if (fullName) user.fullName = fullName;
@@ -266,7 +266,7 @@ exports.generateCv = async (req, res) => {
     ); // chemin de l'image statique
 
     // Ajouter le texte "Consulting School" dans le header
-    doc.fontSize(20).text("La plus belle Promo que j'ai enseigner de ma life", { align: "center" }).moveDown();
+    doc.fontSize(20).text("La plus belle Promo que j'ai enseigné de ma life", { align: "center" }).moveDown();
 
     // Ajouter un espace avant le reste du contenu
     doc.moveDown();
