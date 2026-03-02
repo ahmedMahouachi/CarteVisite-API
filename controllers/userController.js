@@ -266,7 +266,6 @@ exports.generateCv = async (req, res) => {
     ); // chemin de l'image statique
 
     // Ajouter le texte "Consulting School" dans le header
-    doc.fontSize(20).text("La plus belle Promo que j'ai enseigné de ma life", { align: "center" }).moveDown();
 
     // Ajouter un espace avant le reste du contenu
     doc.moveDown();
