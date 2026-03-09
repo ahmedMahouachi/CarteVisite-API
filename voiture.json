@@ -1,0 +1,32 @@
+{
+    "marque": "Toyota",
+    "modele": "tundra",
+    "annee": 2023,
+    "couleur": "gris",
+    "kilometrage": 25100.50,
+    "isElectic": false,
+    "equipement": [
+        "Airbag",
+        "ABS",
+        "ESP"
+    ],
+    "proprietaire": {
+        "nom": "Mahouachi",
+        "prenom": "Ahmed",
+        "permis": true
+    },
+    "infoAchat":{
+        "dateAchat": "12/03/2025",
+        "prix": 50000,
+        "reparations":[
+            {
+                "date": "12/08/2025",
+                "description": "repartaion portiere"
+            },
+            {
+                "date": "19/09/2025",
+                "description": "Pneu crevé"
+            }
+        ]
+    }
+}
