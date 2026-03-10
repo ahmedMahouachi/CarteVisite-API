@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const PUBLIC_DIR = path.join(__dirname, "../public");
+const PUBLIC_DIR = path.join(__dirname, "../public/data");
 
 exports.getFiles = (req, res) => {
   try {
@@ -12,7 +12,7 @@ exports.getFiles = (req, res) => {
 
     const links = files.map(file => ({
       name: file,
-      url: `${baseUrl}/public/${file}`
+      url: `${baseUrl}/public/data/${file}`
     }));
 
     res.json({
